@@ -1,0 +1,46 @@
+@page
+@model IndexModel
+
+<h1>Інвентаризація пицц</h1>
+
+<table border='1'>
+    <thead>
+        <tr>
+            <th>імя</th>
+            <th>Кількість</th>
+            <th>Дії</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var pizza in Model.Pizzas)
+        {
+            <tr>
+                <td>@pizza.Name</td>
+                <td>@pizza.Quantity</td>
+                <td>
+                    <form method='post' asp-page-handler='Increase' style='display:inline;'>
+                        <input type='hidden' name='Id' value='@pizza.Id' />
+                        <button type='submit'>+</button>
+                    </form>
+                    <form method='post' asp-page-handler='Decrease' style='display:inline;'>
+                        <input type='hidden' name='Id' value='@pizza.Id' />
+                        <button type='submit'>-</button>
+                    </form>
+                    <form method='post' asp-page-handler='Remove' style='display:inline;'>
+                        <input type='hidden' name='Id' value='@pizza.Id' />
+                        <button type='submit'>Видалити</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2>Додати нову пиццу</h2>
+<form method='post'>
+    <label for='NewPizzaName'>імя:</label>
+    <input type='text' id='NewPizzaName' name='NewPizzaName' required />
+    <label for='NewPizzaQuantity'>Кількість:</label>
+    <input type='number' id='NewPizzaQuantity' name='NewPizzaQuantity' min='1' value='1' required />
+    <button type='submit'>Додати пиццу</button>
+</form>
